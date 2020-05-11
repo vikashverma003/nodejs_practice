@@ -5,16 +5,20 @@ app.use(express.static('public')) // it avoids the use of public in any path.
 const { check, validationResult } = require('express-validator'); // for valid error and message
 const {matchedData, sanitizeBody} = require('express-validator');
 var ourApi=require('./api/add-category');
+var ourRoutes=require('./routes/index');
 app.use('/api', ourApi);
 
 /* for the template engine */
-app.set('view engine', 'twig') // for the templating engine
+//app.set('view engine', 'twig') // for the templating engine
+app.set('view engine', 'ejs') // for the templating engine
+
 app.set('views', './public/views') // for the templating engine
 
 /* for the body parser */
 app.use(bodyParser.urlencoded({ extended: false })) // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()) // parse application/json
 /* for the express validator */
+app.use('/routes', ourRoutes);
 
 app.get('/', function (req, res) {
     res.render('index', { title: 'Heymm', message: 'Hello therenbnbnb!' })

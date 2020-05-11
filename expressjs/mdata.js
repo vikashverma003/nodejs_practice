@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/employees', {useNewUrlParser: true,useFindAndModify:false});
+//mongoose.connect('mongodb+srv://root:root@cluster0-zergu.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true,useFindAndModify:false});
 
+// mongodb+srv://root:<password>@cluster0-zergu.mongodb.net/test?retryWrites=true&w=majority
 var conn = mongoose.connection;
 
 var employeeSchema = new mongoose.Schema({
@@ -19,8 +21,8 @@ var employeeSchema = new mongoose.Schema({
   }
 var employeeModel = mongoose.model('Employee', employeeSchema);
 var employee  =new employeeModel({
-    name:"tom",
-    email:"jam@gmail.com",
+    name:"john",
+    email:"john@gmail.com",
     etype:"hourly",
     hourlyrate:10,
     totalHours:20,
@@ -40,11 +42,11 @@ conn.on("disconnected", function(){
 conn.on('error', console.error.bind(console, 'connection error:'));
 conn.once('open', function() {
   // we're connected!
- /* employee.save(function(err,res){
+  /*employee.save(function(err,res){
     if(err) throw error;
     console.log(res);
     conn.close();
-  }); */
+  });*/ 
 
   employeeModel.find({},function(err,data){
     if(err) throw error;
